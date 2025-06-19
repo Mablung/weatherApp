@@ -32,12 +32,16 @@ struct ContentView: View {
                     Text("\(weatherData.locationName)")
                         .font(.system(size: 30, weight: .bold))
                     
+                    
+                    let iconName = WeatherCondition(from: weatherData.condition).systemImageName
+
                     // Weather icon
-                    Image(systemName: "cloud.sun.fill")
+                    Image(systemName: iconName)
                         .renderingMode(.original)
                         .resizable()
                         .aspectRatio(contentMode: .fit)
                         .frame(width: 180, height: 180)
+                  
                     
                     // Weather condition (e.g., clear sky)
                     Text("\(weatherData.condition)")
@@ -48,6 +52,7 @@ struct ContentView: View {
                         .font(.system(size: 40, weight: .bold))
 
                     Spacer() // Pushes content to the top
+                    
                     
                     // Horizontal scroll view for daily forecast
                     ScrollView(.horizontal) {
