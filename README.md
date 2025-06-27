@@ -11,6 +11,8 @@ A simple SwiftUI weather application that fetches and displays the current weath
 - 🌐 Displays data from OpenWeatherMap API
 - 🎨 Clean SwiftUI-based UI with gradient background
 - 📱 Horizontally scrollable section for daily weather placeholders
++ - 🌓 Dark mode support for seamless appearance on all devices
++ - 🌤 Dynamic weather icons based on condition codes
 
 ---
 
@@ -73,6 +75,8 @@ Make sure your `Info.plist` contains:
 - [ ] Integrate weather icons based on condition codes
 - [ ] Improve error handling and offline support
 - [ ] Support dark mode
++ - [x] Support dark mode
++ - [x] Integrate weather icons based on condition codes
 
 ---
 
