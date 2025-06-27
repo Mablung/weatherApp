@@ -72,11 +72,9 @@ Make sure your `Info.plist` contains:
 ## 📌 To Do
 
 - [ ] Add 5-day forecast support
-- [ ] Integrate weather icons based on condition codes
 - [ ] Improve error handling and offline support
-- [ ] Support dark mode
-+ - [x] Support dark mode
-+ - [x] Integrate weather icons based on condition codes
+- [x] Support dark mode
+- [x] Integrate weather icons based on condition codes
 
 ---
 
