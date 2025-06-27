@@ -5,7 +5,6 @@
 //  Created by Nurettin Berke Demirel on 19.06.2025.
 //
 
-
 import Foundation
 
 enum WeatherCondition: String {
@@ -18,6 +17,7 @@ enum WeatherCondition: String {
     case thunderstorm = "thunderstorm"
     case snow = "snow"
     case mist = "mist"
+    case haze = "haze"
     case unknown
 
     init(from description: String) {
@@ -42,6 +42,8 @@ enum WeatherCondition: String {
             return "snow"
         case .mist:
             return "cloud.fog.fill"
+        case .haze:
+            return "cloud.drizzle.fill"
         case .unknown:
             return "questionmark.circle"
         }

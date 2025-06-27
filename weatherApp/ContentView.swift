@@ -11,6 +11,9 @@ import CoreLocation
 // Main view for the weather app
 struct ContentView: View {
     
+    // Manages background
+    @State private var isNight = true
+    
     // Manages the user's location
     @StateObject private var locationManager = LocationManager()
     
@@ -19,19 +22,21 @@ struct ContentView: View {
     
     var body: some View {
         ZStack {
-            // Background gradient from blue to white
-            LinearGradient(colors: [.blue, .white],
+            // Background gradient from blue to white or black to gray, depends on isNight
+            LinearGradient(colors: [isNight ? .black : .blue, isNight ? .gray :.white],
                            startPoint: .top,
                            endPoint: .bottom)
-            .edgesIgnoringSafeArea(.all)
+            .ignoresSafeArea(.all)
             
             // Show weather data if available
             if let weatherData = weatherData {
                 VStack {
+                    
+                    
                     // Display location name
                     Text("\(weatherData.locationName)")
-                        .font(.system(size: 30, weight: .bold))
-                    
+                        .font(.system(size: 30, weight:.bold))
+                        .foregroundColor(isNight ? .white : .black)
                     
                     let iconName = WeatherCondition(from: weatherData.condition).systemImageName
 
@@ -46,26 +51,26 @@ struct ContentView: View {
                     // Weather condition (e.g., clear sky)
                     Text("\(weatherData.condition)")
                         .font(.system(size: 30, weight: .bold))
+                        .foregroundColor(isNight ? .white : .black)
                     
                     // Temperature in Celsius
                     Text("\(Int(weatherData.temperature))°C")
                         .font(.system(size: 40, weight: .bold))
-
+                        .foregroundColor(isNight ? .white : .black)
+                   
                     Spacer() // Pushes content to the top
-                    
-                    
                     // Horizontal scroll view for daily forecast
                     ScrollView(.horizontal) {
                         HStack(spacing: 7) {
                             // Sample daily weather data views
                             ForEach(1..<10) { index in
-                                dayView(dayName: "Pzt", icon: "sun.max.fill", temp: "21°C")
-                                dayView(dayName: "Salı", icon: "sun.rain.fill", temp: "20°C")
-                                dayView(dayName: "Çrş", icon: "cloud.rain.fill", temp: "18°C")
-                                dayView(dayName: "Prş", icon: "cloud.rain.fill", temp: "18°C")
-                                dayView(dayName: "Cuma", icon: "cloud.rain.fill", temp: "23°C")
-                                dayView(dayName: "Cmt", icon: "cloud.rain.fill", temp: "24°C")
-                                dayView(dayName: "Pzr", icon: "cloud.rain.fill", temp: "19°C")
+                                dayView(dayName: "Mon", icon: "sun.max.fill", temp: "21°C")
+                                dayView(dayName: "Tue", icon: "sun.rain.fill", temp: "20°C")
+                                dayView(dayName: "Wed", icon: "cloud.rain.fill", temp: "18°C")
+                                dayView(dayName: "Thr", icon: "cloud.rain.fill", temp: "18°C")
+                                dayView(dayName: "Fri", icon: "cloud.rain.fill", temp: "23°C")
+                                dayView(dayName: "Str", icon: "cloud.rain.fill", temp: "24°C")
+                                dayView(dayName: "Sun", icon: "cloud.rain.fill", temp: "19°C")
                             }
                         }
                     }
@@ -91,7 +96,7 @@ struct ContentView: View {
     
     // Fetch weather data from OpenWeatherMap API
     private func fetchWeatherData(for location: CLLocation) {
-        let apiKey = "{YOUR_API_KEY}"
+        let apiKey = "{YOUR_OPENWEATHERMAP_API_KEY}"
         let urlString = "https://api.openweathermap.org/data/2.5/weather?lat=\(location.coordinate.latitude)&lon=\(location.coordinate.longitude)&units=metric&appid=\(apiKey)"
         
         guard let url = URL(string: urlString) else { return }
@@ -112,7 +117,7 @@ struct ContentView: View {
                         condition: weatherResponse.weather.first?.description ?? ""
                     )
                 }
-                print("✅ API'den gelen JSON:\n\(String(data: data, encoding: .utf8) ?? "Veri çözümlenemedi")")
+                print("✅ JSON datas :\n\(String(data: data, encoding: .utf8) ?? "Data could not be parsed")")
 
             } catch {
                 print(error.localizedDescription)
